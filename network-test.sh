@@ -11,6 +11,6 @@ echo "Extracted endpoints in JSON format: $endpoints_json"
 
 # Sequentially run mtr-tiny command on the first 3 endpoints
 for endpoint in $(echo "$endpoints" | head -n 3); do
-    echo "Running mtr-tiny for endpoint: $endpoint"
+    echo "Endpoint being tested: $endpoint"
     mtr --report --report-cycles=10 $endpoint
 done
