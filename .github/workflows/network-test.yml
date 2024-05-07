@@ -16,5 +16,11 @@ jobs:
       run: bash ./network-test.sh
       # This step assumes network-test.sh is executable and in the root directory of the repository
 
+    - name: Upload endpoints_json output
+      uses: actions/upload-artifact@v2
+      with:
+        name: endpoints_json
+        path: endpoints_output.txt
+
     - name: Expose Output
       run: echo "Network test output exposed in the workflow log"
