@@ -1,0 +1,20 @@
+name: Network Test
+
+on: push
+
+jobs:
+  test-network:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: sudo apt-get install mtr-tiny
+
+    - name: Run network-test.sh
+      run: bash ./network-test.sh
+      # This step assumes network-test.sh is executable and in the root directory of the repository
+
+    - name: Expose Output
+      run: echo "Network test output exposed in the workflow log"
