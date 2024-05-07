@@ -6,8 +6,8 @@ endpoints=$(curl -s https://api.github.com/meta | jq -r '.actions[] | select(end
 # Extract the first 3 endpoints and format them into JSON
 endpoints_json=$(echo "$endpoints" | head -n 3 | jq -R . | jq -s .)
 
-# Echo the JSON formatted endpoints
-echo "Extracted endpoints in JSON format: $endpoints_json"
+# Echo the JSON formatted endpoints and save to a file
+echo "Extracted endpoints in JSON format: $endpoints_json" | tee endpoints_output.txt
 
 # Sequentially run mtr-tiny command on the first 3 endpoints
 for endpoint in $(echo "$endpoints" | head -n 3); do
