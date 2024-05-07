@@ -1,16 +1,13 @@
 #!/bin/bash
 
-# Fetch the GitHub API meta endpoint
-endpoints=$(curl -s https://api.github.com/meta | jq -r '.actions[] | select(endswith(".actions.githubusercontent.com"))')
+# Fetch the data from the URL
+data=$(curl -s https://api.github.com/meta)
 
-# Extract the first 3 endpoints and format them into JSON
-endpoints_json=$(echo "$endpoints" | head -n 3 | jq -R . | jq -s .)
+# Parse the JSON and extract the "actions" section under "domains"
+actions=$(echo "$data" | jq -r '.domains.actions[]')
 
-# Echo the JSON formatted endpoints and save to a file
-echo "Extracted endpoints in JSON format: $endpoints_json" | tee endpoints_output.txt
+# Filter the "actions" section to only keep endpoints that end with "actions.githubusercontent.com"
+actions=$(echo "$actions" | grep 'actions\.githubusercontent\.com$')
 
-# Sequentially run mtr-tiny command on the first 3 endpoints
-for endpoint in $(echo "$endpoints" | head -n 3); do
-    echo "Endpoint being tested: $endpoint"
-    mtr --report --report-cycles=10 $endpoint
-done
+# Print the filtered "actions" section
+echo "$actions"
