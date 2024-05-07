@@ -9,9 +9,6 @@ endpoints_json=$(echo "$endpoints" | head -n 3 | jq -R . | jq -s .)
 # Echo the JSON formatted endpoints
 echo "Extracted endpoints in JSON format: $endpoints_json"
 
-# Install mtr-tiny on the Ubuntu VM
-sudo apt-get update && sudo apt-get install -y mtr-tiny
-
 # Sequentially run mtr-tiny command on the first 3 endpoints
 for endpoint in $(echo "$endpoints" | head -n 3); do
     echo "Running mtr-tiny for endpoint: $endpoint"
