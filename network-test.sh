@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Fetch the data from the URL
-data=$(curl -s https://api.github.com/meta)
+# Fetch the GitHub API meta endpoint
+endpoints=$(curl -s https://api.github.com/meta | jq -r '.actions.domains[]')
 
 # Parse the JSON and extract the "actions" section under "domains"
 actions=$(echo "$data" | jq -r '.domains.actions[]')
