@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Fetch the GitHub API meta endpoint
-endpoints=$(curl -s https://api.github.com/meta | jq -r '.actions[] | select(endswith(".actions.githubusercontent.com"))')
+endpoints=$(curl -s https://api.github.com/meta | jq -r '.actions.domains[]')
 
 # Extract the first 3 endpoints and format them into JSON
 endpoints_json=$(echo "$endpoints" | head -n 3 | jq -R . | jq -s .)
